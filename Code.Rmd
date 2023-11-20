@@ -1,0 +1,84 @@
+```{r}
+#Regresi Linier Berganda
+data=read.csv("C:/Users/BAYU/OneDrive/Documents/AI/pens/praktkum statstika dasar/332219600019_Bayu Kurniawan/19_data.csv")
+data
+```
+```{r}
+X1=data$AHH
+X2=data$RLS
+X3=data$HLS
+X4=data$Pengeluaran
+X5=data$IPM
+relation <- lm(X5~0+X1+X2+X3+X4)
+print(summary(relation))
+```
+```{r}
+# Analisis Residual
+residual=resid(relation)
+#a. Uji Normalitas Residual
+#Plot histogram
+hist(residual,main="Histogram Residual")
+```
+```{r}
+#Uji Kolmogorov – Smirnov
+library(nortest)
+lillie.test(residual)
+```
+```{r}
+#QQPlot Residual
+qqnorm(residual)
+qqline(residual)
+```
+```{r}
+#Uji homoskedastisitas
+library(lmtest)
+bptest(relation,studentize=F)
+# p-value = 0.6941 > 5%
+# Kesimpulan: Residual mempunyai variansi yang konstan(homogen)
+```
+```{r}
+#Uji Autokorelasi (Durbin Watson)
+dwtest(relation)
+# p-value = 0.3104 > 5%
+# Kesimpulan: Tidak ada autokorelasi dari nilai residual
+```
+```{r}
+Y=data$IPM
+Ikesehatan=(data$AHH-20)/(85-20)
+IRLS=(data$RLS-0)/(15-0)
+IHLS=(data$HLS-0)/(18-0)
+Ipendidikan=(IRLS+IHLS)/2
+Ipengeluaran=(data$Pengeluaran-1007)/(26572-1007)
+relation <- lm(Y~0+Ipendidikan+Ikesehatan)
+print(summary(relation))
+```
+```{r}
+# Analisis Residual
+residual=resid(relation)
+#a. Uji Normalitas Residual
+#Plot histogram
+hist(residual,main="Histogram Residual")
+```
+```{r}
+#Uji Kolmogorov – Smirnov
+library(nortest)
+lillie.test(residual)
+```
+```{r}
+#QQPlot Residual
+qqnorm(residual)
+qqline(residual)
+```
+```{r}
+#Uji homoskedastisitas
+library(lmtest)
+bptest(relation,studentize=F)
+# p-value = 0.7183 > 5%
+# Kesimpulan: Residual mempunyai variansi yang konstan(homogen)
+```
+```{r}
+#Uji Autokorelasi (Durbin Watson)
+dwtest(relation)
+# p-value = 0.3243 > 5%
+# Kesimpulan: Tidak ada autokorelasi dari nilai residual
+```
