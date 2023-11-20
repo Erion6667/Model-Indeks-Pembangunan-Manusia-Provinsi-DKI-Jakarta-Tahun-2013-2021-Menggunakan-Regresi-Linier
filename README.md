@@ -1,0 +1,1 @@
+# Model-Indeks-Pembangunan-Manusia-Provinsi-DKI-Jakarta-Tahun-2013-2021-Menggunakan-Regresi-Linier
